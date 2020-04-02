@@ -12,6 +12,7 @@ func Connect() {
 		User:     "postgres",
 		Password: "123456",
 		Addr:     "localhost:5432",
+		Database: "mydb",
 	}
 	var db *pg.DB = pg.Connect(opts)
 	if db == nil {

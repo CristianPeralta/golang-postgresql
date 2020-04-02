@@ -1,6 +1,8 @@
 package db
 
-import "time"
+import (
+	"time"
+)
 
 type ProductItem struct {
 	RefPointer int      `sql:"-"`
