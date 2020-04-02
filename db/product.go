@@ -1,7 +1,10 @@
 package db
 
 import (
+	"log"
 	"time"
+
+	pg "github.com/go-pg/pg"
 )
 
 type ProductItem struct {
@@ -20,4 +23,14 @@ type ProductItem struct {
 	CreatedAt time.Time `sql:"created_at"`
 	UpdatedAt time.Time `sql:"updated_at"`
 	IsActive  bool      `sql:"is_active"`
+}
+
+func CreateProdItemsTable(db *pg.DB) error {
+	createErr := db.CreateTable(&ProductItem{}, nil)
+	if createErr != nil {
+		log.Printf("Error while creating table ProductItem, Reason %v\n", createErr)
+		return createErr
+	}
+	log.Printf("Table ProductItem created successfully.\n")
+	return nil
 }
