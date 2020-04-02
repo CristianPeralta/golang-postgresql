@@ -1,6 +1,0 @@
-package: .
-import:
-- package: github.com/go-pg/pg
-  version: ^9.1.5
-  subpackages:
-  - v9
