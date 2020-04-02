@@ -8,5 +8,5 @@ import (
 
 func main() {
 	log.Printf("Hello world!")
-	db.Connect()
+	pgDb := db.Connect()
 }

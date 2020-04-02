@@ -7,7 +7,7 @@ import (
 	pg "github.com/go-pg/pg"
 )
 
-func Connect() db *pg.DB {
+func Connect() *pg.DB {
 	opts := &pg.Options{
 		User:     "postgres",
 		Password: "123456",

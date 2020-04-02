@@ -5,7 +5,7 @@ import (
 	"time"
 
 	pg "github.com/go-pg/pg"
-	"github.com/go-pg/pg/orm"
+	orm "github.com/go-pg/pg/orm"
 )
 
 type ProductItem struct {
