@@ -36,6 +36,17 @@ func (pi *ProductItem) Save(db *pg.DB) error {
 	return nil
 }
 
+func (pi *ProductItem) SaveAndReturn(db *pg.DB) (*ProductItem, error) {
+	insertResult, insertError := db.Model(pi).Returning("*").Insert()
+	if insertError != nil {
+		log.Printf("Error while inserting new item, Reason %v\n", insertError)
+		return nil, insertError
+	}
+	log.Printf("ProductItem inserted successfully.\n")
+	log.Printf("Received new value result is %v\n", insertResult.RowsReturned)
+	return pi, nil
+}
+
 func CreateProdItemsTable(db *pg.DB) error {
 	opts := &orm.CreateTableOptions{
 		IfNotExists: true,

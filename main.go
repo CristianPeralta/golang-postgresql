@@ -33,5 +33,5 @@ func SaveProduct(dbRef *pg.DB) {
 		UpdatedAt: time.Now(),
 		IsActive:  true,
 	}
-	newPI.Save(dbRef)
+	newPI.SaveAndReturn(dbRef)
 }
