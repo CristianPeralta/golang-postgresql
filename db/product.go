@@ -5,6 +5,7 @@ import (
 	"time"
 
 	pg "github.com/go-pg/pg"
+	"github.com/go-pg/pg/orm"
 )
 
 type ProductItem struct {
@@ -26,7 +27,10 @@ type ProductItem struct {
 }
 
 func CreateProdItemsTable(db *pg.DB) error {
-	createErr := db.CreateTable(&ProductItem{}, nil)
+	opts := &orm.CreateTableOptions{
+		IfNotExists: true,
+	}
+	createErr := db.CreateTable(&ProductItem{}, opts)
 	if createErr != nil {
 		log.Printf("Error while creating table ProductItem, Reason %v\n", createErr)
 		return createErr
