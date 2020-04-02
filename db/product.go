@@ -26,6 +26,16 @@ type ProductItem struct {
 	IsActive  bool      `sql:"is_active"`
 }
 
+func (pi *ProductItem) Save(db *pg.DB) error {
+	insertErr := db.Insert(pi)
+	if insertErr != nil {
+		log.Printf("Error while inserting new item into DB, Reason: %v\n", insertErr)
+		return insertErr
+	}
+	log.Printf("ProductItem %s inserted successfully.\n", pi.Name)
+	return nil
+}
+
 func CreateProdItemsTable(db *pg.DB) error {
 	opts := &orm.CreateTableOptions{
 		IfNotExists: true,
