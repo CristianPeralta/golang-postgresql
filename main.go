@@ -13,7 +13,8 @@ func main() {
 	pgDb := db.Connect()
 	// SaveProduct(pgDb)
 	// db.PlaceHolderDemo(pgDb)
-	UpdateItemPrice(pgDb)
+	// UpdateItemPrice(pgDb)
+	GetItemById(pgDb)
 }
 
 func SaveProduct(dbRef *pg.DB) {
@@ -72,4 +73,11 @@ func UpdateItemPrice(dbRef *pg.DB) {
 		Price: 5.0,
 	}
 	newPI.UpdatePrice(dbRef)
+}
+
+func GetItemById(dbRef *pg.DB) {
+	newPI := &db.ProductItem{
+		ID: 1,
+	}
+	newPI.GetById(dbRef)
 }
