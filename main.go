@@ -70,7 +70,7 @@ func DeleteItem(dbRef *pg.DB) {
 func UpdateItemPrice(dbRef *pg.DB) {
 	newPI := &db.ProductItem{
 		ID:    1,
-		Price: 544.70,
+		Price: 4314.50,
 	}
 	newPI.UpdatePrice(dbRef)
 }

@@ -57,6 +57,13 @@ func (pi *ProductItem) UpdatePrice(db *pg.DB) error {
 		tx.Rollback()
 		return updateError
 	}
+
+	_, updateError2 := tx.Model(pi).Set("is_active = ?", true).Where("id = ?id").Update()
+	if updateError2 != nil {
+		log.Printf("Error while updating is_active, Reason: %v\n", updateError2)
+		tx.Rollback()
+		return updateError2
+	}
 	tx.Commit()
 	log.Printf("Price updated successfully for ID %d\n", pi.ID)
 	return nil
