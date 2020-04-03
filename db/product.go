@@ -27,7 +27,12 @@ type ProductItem struct {
 }
 
 func (pi *ProductItem) GetById(db *pg.DB) error {
-	getErr := db.Model(pi).Where("id = ?id").Select()
+	getErr := db.Model(pi).
+		Column("name", "desc").
+		Where("id = ?id").
+		WhereOr("id = ?0", 2).
+		Limit(1).
+		Select()
 	if getErr != nil {
 		log.Printf("Error while getting value by id, Reason: %v\n", getErr)
 		return getErr
