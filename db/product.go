@@ -33,6 +33,9 @@ func (pi *ProductItem) GetById(db *pg.DB) error {
 		Column("name", "desc").
 		Where("id = ?0", pi.ID).
 		WhereOr("id = ?0", 2).
+		Limit(2).
+		Offset(0).
+		Order("id asc").
 		Select()
 	if getErr != nil {
 		log.Printf("Error while getting value by id, Reason: %v\n", getErr)
