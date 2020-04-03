@@ -46,11 +46,18 @@ func (pi *ProductItem) GetById(db *pg.DB) error {
 }
 
 func (pi *ProductItem) UpdatePrice(db *pg.DB) error {
-	_, updateError := db.Model(pi).Set("price = ?price").Where("id = ?id").Update()
+	tx, txErr := db.Begin()
+	if txErr != nil {
+		log.Printf("Error while opening tx, Reason: %v\n", txErr)
+		return txErr
+	}
+	_, updateError := tx.Model(pi).Set("price = ?price").Where("id = ?id").Update()
 	if updateError != nil {
 		log.Printf("Error while updating price, Reason: %v\n", updateError)
+		tx.Rollback()
 		return updateError
 	}
+	tx.Commit()
 	log.Printf("Price updated successfully for ID %d\n", pi.ID)
 	return nil
 }
