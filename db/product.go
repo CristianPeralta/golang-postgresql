@@ -26,8 +26,8 @@ type ProductItem struct {
 	IsActive  bool      `sql:"is_active"`
 }
 
-func (pi *ProductItem) UpdateItem(db *pg.DB) error {
-	_, updateError := db.Model(pi).Set("price = ?pruce").Where("id = ?id").Update()
+func (pi *ProductItem) UpdatePrice(db *pg.DB) error {
+	_, updateError := db.Model(pi).Set("price = ?price").Where("id = ?id").Update()
 	if updateError != nil {
 		log.Printf("Error while updating price, Reason: %v\n", updateError)
 		return updateError
