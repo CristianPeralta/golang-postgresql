@@ -26,6 +26,16 @@ type ProductItem struct {
 	IsActive  bool      `sql:"is_active"`
 }
 
+func (pi *ProductItem) GetById(db *pg.DB) error {
+	getErr := db.Model(pi).Where("id = ?id").Select()
+	if getErr != nil {
+		log.Printf("Error while getting value by id, Reason: %v\n", getErr)
+		return getErr
+	}
+	log.Printf("Get by id successful for ID %v\n", *pi)
+	return nil
+}
+
 func (pi *ProductItem) UpdatePrice(db *pg.DB) error {
 	_, updateError := db.Model(pi).Set("price = ?price").Where("id = ?id").Update()
 	if updateError != nil {
