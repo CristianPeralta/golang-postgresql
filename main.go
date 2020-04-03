@@ -11,7 +11,8 @@ import (
 func main() {
 	log.Printf("Hello world!")
 	pgDb := db.Connect()
-	SaveProduct(pgDb)
+	// SaveProduct(pgDb)
+	db.PlaceHolderDemo(pgDb)
 }
 
 func SaveProduct(dbRef *pg.DB) {
