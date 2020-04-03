@@ -26,6 +26,16 @@ type ProductItem struct {
 	IsActive  bool      `sql:"is_active"`
 }
 
+func (pi *ProductItem) Delete(db *pg.DB) error {
+	_, deleteError := db.Model(pi).Where("name = ?name").Delete()
+	if deleteError != nil {
+		log.Printf("Error while deleting item, Reason: %v\n", deleteError)
+		return deleteError
+	}
+	log.Printf("Delete successful for %s, Item.\n", pi.Name)
+	return nil
+}
+
 func (pi *ProductItem) Save(db *pg.DB) error {
 	insertErr := db.Insert(pi)
 	if insertErr != nil {
