@@ -61,7 +61,7 @@ func SaveProduct(dbRef *pg.DB) {
 
 func DeleteItem(dbRef *pg.DB) {
 	newPi := &db.ProductItem{
-		Name: "Product 4",
+		Name: "Product 5",
 	}
-	newPi.Delete(dbRef)
+	newPi.DeleteItem(dbRef)
 }

@@ -26,7 +26,17 @@ type ProductItem struct {
 	IsActive  bool      `sql:"is_active"`
 }
 
-func (pi *ProductItem) Delete(db *pg.DB) error {
+func (pi *ProductItem) UpdateItem(db *pg.DB) error {
+	_, updateError := db.Model(pi).Set("price = ?pruce").Where("id = ?id").Update()
+	if updateError != nil {
+		log.Printf("Error while updating price, Reason: %v\n", updateError)
+		return updateError
+	}
+	log.Printf("Price updated successfully for ID %d\n", pi.ID)
+	return nil
+}
+
+func (pi *ProductItem) DeleteItem(db *pg.DB) error {
 	_, deleteError := db.Model(pi).Where("name = ?name").Delete()
 	if deleteError != nil {
 		log.Printf("Error while deleting item, Reason: %v\n", deleteError)
